@@ -1,0 +1,25 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "gas-station-48dc0",
+                    "appId": "1:866286019165:android:2d38ca1d5ecb91a39423b4",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "gas-station-48dc0",
+                    "configurations": {
+                        "android": "1:866286019165:android:2d38ca1d5ecb91a39423b4",
+                        "ios": "1:866286019165:ios:937e0c8bca2376f49423b4",
+                        "macos": "1:866286019165:ios:937e0c8bca2376f49423b4",
+                        "web": "1:866286019165:web:ee8877841e75933d9423b4",
+                        "windows": "1:866286019165:web:d79039243ee6f1069423b4"
+                    }
+                }
+            }
+        }
+    }
+}
