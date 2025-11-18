@@ -12,7 +12,6 @@ Api Firebase:
     flutter pub add firebase_auth
     flutter pub add cloud_firestore
     flutter pub add google_sign_in
-    flutter pub add flutter_facebook_auth
     flutter pub add firebase_storage
     flutter pub add firebase_messaging
     flutter pub add firebase_database

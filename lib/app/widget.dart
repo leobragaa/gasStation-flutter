@@ -3,6 +3,9 @@ import 'package:gas_station_p2/data/repositories/repositorio.dart';
 import 'package:provider/provider.dart';
 import '../pages/cadastro/cadastro_viewmodel.dart';
 import '../pages/login/login_viewmodel.dart';
+import '../pages/veiculos/veiculo_viewmodel.dart';
+import '../data/repositories/veiculo_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'routes.dart';
 import '../core/theme.dart';
 
@@ -20,6 +23,9 @@ class AppWidget extends StatelessWidget{
         ),
         ChangeNotifierProvider(
           create: (c) => CadastroViewModel(c.read<AuthRepository>()),
+        ),
+        ChangeNotifierProvider(
+          create: (c) => VeiculoViewModel(VeiculoRepository(userId: FirebaseAuth.instance.currentUser!.uid)),
         ),
       ],
       child: MaterialApp(
