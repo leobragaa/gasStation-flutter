@@ -5,6 +5,8 @@ import '../pages/cadastro/cadastro_viewmodel.dart';
 import '../pages/login/login_viewmodel.dart';
 import '../pages/veiculos/veiculo_viewmodel.dart';
 import '../data/repositories/veiculo_repository.dart';
+import '../data/repositories/abstecimento_repository.dart';
+import '../pages/abstecimento/abastecimento_viewmodel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'routes.dart';
 import '../core/theme.dart';
@@ -27,7 +29,12 @@ class AppWidget extends StatelessWidget{
         ChangeNotifierProvider(
           create: (c) => VeiculoViewModel(VeiculoRepository(userId: FirebaseAuth.instance.currentUser!.uid)),
         ),
+
+        ChangeNotifierProvider(
+          create: (c) => AbastecimentoViewModel(AbastecimentoRepository(userId: FirebaseAuth.instance.currentUser!.uid)),
+        ),
       ],
+
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Gas Station",
