@@ -131,7 +131,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         child: const Text("Login"),
                       ),
-
                 TextButton(
                   onPressed: () => Navigator.pushNamed(context, "/cadastro"),
                   child: const Text(

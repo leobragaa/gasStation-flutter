@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../../veiculos/veiculo_viewmodel.dart';
 import '../abastecimento_viewmodel.dart';
 import '../../../data/models/veiculo_model.dart';
+import '../../../data/models/abastecimento_model.dart';
+
 
 
 class AbastecimentoForm extends StatefulWidget{
@@ -18,7 +20,6 @@ class _AbastecimentoFormState extends State<AbastecimentoForm>{
   final posto = TextEditingController();
   final quilometragem = TextEditingController();
   final valorPago = TextEditingController();
-  final _kmController = TextEditingController();
 
 
   String? veiculoSelecionadoId;
@@ -100,14 +101,6 @@ class _AbastecimentoFormState extends State<AbastecimentoForm>{
                 labelText: "Quilometragem",
               ),
             ),
-            TextField(
-              controller: _kmController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: "KM Percorrido (Trip)",
-                helperText: "Distância rodada desde o último tanque",
-              ),
-            ),
             const SizedBox(height: 10),
               TextField(
               controller: valorPago,
@@ -139,20 +132,36 @@ class _AbastecimentoFormState extends State<AbastecimentoForm>{
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () async {
-                if (veiculoSelecionadoId == null) return;
-                await abstecimentoViewModel.adicionarAbastecimento(
+                if (veiculoSelecionadoId == null){
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Selecionando Veiculo")
+                    ),
+                   );
+                  return; 
+                }
+                
+                final litrosValor = double.parse(litros.text);
+                final precoPorLitroValor = double.parse(precoPorLitro.text);
+                final quilometragemValor = double.parse(quilometragem.text);
+                final valorPagoValor = double.parse(valorPago.text);
+                final consumo = litrosValor / quilometragemValor;
+
+                final newAbastecimento = AbastecimentoModel(
+                  id: "",
                   veiculoId: veiculoSelecionadoId!,
                   data: dataSelecionada,
-                  litros: double.parse(litros.text),
-                  precoPorLitro: double.parse(precoPorLitro.text),
+                  litros: litrosValor,
+                  precoPorLitro: precoPorLitroValor,
                   tipoCombustivel: tipoCombustivel,
                   posto: posto.text,
-                  km: double.parse(_kmController.text),
-                  quilometragem: double.parse(quilometragem.text),
-                  valorPago: double.parse(valorPago.text),
-                  consumo: double.parse(_kmController.text) / double.parse(litros.text),
+                  quilometragem: quilometragemValor,
+                  valorPago: valorPagoValor,
+                  consumo: consumo,
                 );
-                Navigator.pop(context);
+
+                await abstecimentoViewModel.adicionarAbastecimento(newAbastecimento);
+                if(context.mounted) Navigator.pop(context);
               },
               child: const Text("Adicionar"),
             ),

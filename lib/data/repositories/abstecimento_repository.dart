@@ -8,14 +8,17 @@ class AbastecimentoRepository {
   AbastecimentoRepository({required this.userId});
 
   CollectionReference get _collection => 
-    firestore.collection("users").doc(userId).collection("abstecimentos");
+    firestore.collection("users").doc(userId).collection("abastecimentos");
 
   Future<void> adicionarAbstecimento(AbastecimentoModel abstecimento) async {
     await _collection.add(abstecimento.toMap());
   }
 
   Future<void> deletarVeiculo(String id) async {
-    await _collection.doc().delete();
+    await _collection.doc(id).delete();
+  }
+  Future<void> updateVeiculo(AbastecimentoModel abstecimento) async {
+    await _collection.doc(abstecimento.id).update(abstecimento.toMap());
   }
 
   Stream <List<AbastecimentoModel>> getVeiculos(){
